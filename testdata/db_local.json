@@ -1,27 +1,49 @@
 {
-    "TableName": "local_company_table",
-    "KeySchema": [
-        {
-            "AttributeName": "company",
-            "KeyType": "HASH"
-        },
-        {
-            "AttributeName": "year",
-            "KeyType": "RANGE"
-        }
-    ],
     "AttributeDefinitions": [
         {
-            "AttributeName": "company",
+            "AttributeName": "MangementID",
             "AttributeType": "S"
         },
         {
-            "AttributeName": "year",
+            "AttributeName": "Search_Value",
             "AttributeType": "S"
+        },
+        {
+            "AttributeName": "Upload_Date",
+            "AttributeType": "S"
+        }
+    ],
+    "TableName": "Master_Mangement",
+    "KeySchema": [
+        {
+            "AttributeName": "MangementID",
+            "KeyType": "HASH"
         }
     ],
     "ProvisionedThroughput": {
-        "ReadCapacityUnits": 2,
-        "WriteCapacityUnits": 2
-    }
+        "ReadCapacityUnits": 5,
+        "WriteCapacityUnits": 5
+    },
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "Search_Value-Upload_Date-index",
+            "KeySchema": [
+                {
+                    "AttributeName": "Search_Value",
+                    "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "Upload_Date",
+                    "KeyType": "RANGE"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+            }
+        }
+    ]
 }
